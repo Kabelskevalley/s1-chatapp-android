@@ -47,14 +47,12 @@ public class RegistrationActivity extends AppCompatActivity implements OnHttpRes
         String password1 = ((EditText)findViewById(R.id.editText_p1)).getText().toString();
         String password2 = ((EditText)findViewById(R.id.editText_p2)).getText().toString();
 
-        if(check_registrationData(password1,password2,name)) {
+        if(check_registrationData(password1,password2,name,thumbnail)) {
             LogInData logIn_data;
             if(thumbnail.isEmpty())
                 logIn_data = new LogInData(name, password1);
             else
                 logIn_data = new LogInData(name, password1,thumbnail);
-
-
 
             new HttpRegistrationTask(this, logIn_data).execute();
         }
@@ -87,9 +85,12 @@ public class RegistrationActivity extends AppCompatActivity implements OnHttpRes
         });
     }
 
-    public boolean check_registrationData(String password1, String password2, String name) {
+    public boolean check_registrationData(String password1, String password2, String name, String thumbnail) {
 
-
+        if(!(thumbnail.toString().contains(".jpg")^ thumbnail.toString().contains(".png"))) {
+            Toast.makeText(getApplicationContext(), "Das Thumbnail ist nicht zulässig. Es funktionieren nur .png und .jpg Dateien", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (password1.equals(password2) && name!=null && password1.length()>3 && !password1.contains(" ") && !name.contains(" ")) {
             return true;
         }

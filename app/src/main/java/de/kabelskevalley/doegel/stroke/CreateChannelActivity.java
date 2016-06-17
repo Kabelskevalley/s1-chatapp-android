@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,12 +33,18 @@ public class CreateChannelActivity extends AppCompatActivity{
             public void onClick(View v) {
                 String name = ((EditText)findViewById(R.id.e_ChannelName)).getText().toString();
                 String thumbnail = ((EditText)findViewById(R.id.e_ChannelThumbnail)).getText().toString();
-                if(thumbnail.isEmpty() || !(thumbnail.toString().contains(".jpg")^ thumbnail.toString().contains(".png")))
-                    thumbnail=null;
 
-                if(!name.isEmpty()) {
-                    Channel channel = new Channel(name, thumbnail);
-                    new HttpCreateChannelTask(mChannelListener, channel).execute();
+                if(!(thumbnail.toString().contains(".jpg")^ thumbnail.toString().contains(".png")))
+                {
+                    Toast.makeText(getApplicationContext(),"Das Thumbnail ist nicht zulässig. Es funktionieren nur .png und .jpg Dateien",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(thumbnail.isEmpty() )
+                        thumbnail=null;
+                    if (!name.isEmpty()) {
+                        Channel channel = new Channel(name, thumbnail);
+                        new HttpCreateChannelTask(mChannelListener, channel).execute();
+                    }
                 }
             }
         });
