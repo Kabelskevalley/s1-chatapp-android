@@ -32,9 +32,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"/>
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:singleLine="false"
+            android:minLines="1"
+            android:scrollHorizontally="false"
+            />
 
         <Button
             android:id="@+id/message_send"
