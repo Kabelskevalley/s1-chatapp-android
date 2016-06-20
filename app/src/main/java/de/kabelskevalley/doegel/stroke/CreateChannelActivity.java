@@ -32,7 +32,7 @@ public class CreateChannelActivity extends AppCompatActivity{
             public void onClick(View v) {
                 String name = ((EditText)findViewById(R.id.e_ChannelName)).getText().toString();
                 String thumbnail = ((EditText)findViewById(R.id.e_ChannelThumbnail)).getText().toString();
-                if(thumbnail.isEmpty() || !(thumbnail.toString().contains(".jpg")^ thumbnail.toString().contains(".png")))
+                if(thumbnail.isEmpty() || !(thumbnail.toString().contains(".jpg")^ thumbnail.toString().contains(".png")^thumbnail.toString().contains(".gif")))
                     thumbnail=null;
 
                 if(!name.isEmpty()) {
@@ -70,7 +70,7 @@ public class CreateChannelActivity extends AppCompatActivity{
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            if(s.toString().contains("jpg")||s.toString().contains("png"))
+            if(s.toString().contains(".jpg")^s.toString().contains(".png")^s.toString().contains(".gif"))
             ImageLoader.getInstance().displayImage(s.toString(),imageView);
             else
             {
