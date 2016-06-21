@@ -106,7 +106,7 @@ public class RegistrationActivity extends AppCompatActivity implements OnHttpRes
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            if(s.toString().contains("jpg")||s.toString().contains("png"))
+            if(s.toString().contains("jpg")^s.toString().contains("png")^s.toString().contains(".gif"))
                 ImageLoader.getInstance().displayImage(s.toString(),imageView);
             else
             {

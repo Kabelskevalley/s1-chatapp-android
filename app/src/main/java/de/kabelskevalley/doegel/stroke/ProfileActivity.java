@@ -117,8 +117,8 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.internet:
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 String uri = clipboard.getText().toString();
-                if(uri.isEmpty() || !(uri.toString().contains(".jpg")^ uri.toString().contains(".png")))
-                     Toast.makeText(getApplicationContext(),"Kopierter Link ist nicht zulässig. Es funktionieren nur .png und .jpg Dateien",Toast.LENGTH_SHORT).show();
+                if(uri.isEmpty() || !(uri.toString().contains(".jpg")^ uri.toString().contains(".png")^uri.toString().contains(".gif")))
+                     Toast.makeText(getApplicationContext(),"Kopierter Link ist nicht zulässig. Es funktionieren nur .png , .gif und .jpg Dateien",Toast.LENGTH_SHORT).show();
                 else
                     changeThumbnail(uri);
                 return true;

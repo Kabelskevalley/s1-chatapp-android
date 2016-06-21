@@ -3,9 +3,6 @@ package de.kabelskevalley.doegel.stroke;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,13 +20,11 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,8 +80,29 @@ public class ChannelDetailFragment extends Fragment {
         @Override
         public void onClick(View v) {
             EditText message = ((EditText) mRootView.findViewById(R.id.message_text));
-            mSocket.emit("new message", message.getText());
-            message.setText("");
+            String messageText = message.getText().toString();
+
+            //Check if chars are in the EditText_View (and that the string ist not only " ")
+            if(!messageText.isEmpty())
+            {
+              if(messageText.length() < 100)
+              {
+                  char[] temp = messageText.toCharArray();
+                  for(int i = 0; i<messageText.length();i++)
+                  {
+                      if(temp[i] != ' ')
+                      {
+                          mSocket.emit("new message", messageText);
+                          message.setText("");
+                          break;
+                      }
+                  }
+              }
+              else {
+                  mSocket.emit("new message", messageText);
+                  message.setText("");
+              }
+            }
         }
     };
     private View.OnLongClickListener onSendLongClicked = new View.OnLongClickListener() {
